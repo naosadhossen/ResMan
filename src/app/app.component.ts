@@ -1,21 +1,35 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { NgModule } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, RouterLink, MatToolbarModule, MatButtonModule, MatIconModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'ResManFE';
+  formFields = {
+    signUp: {
+      username: {
+        order: 1
+      },
+      name: {
+        order: 2
+      },
+      email: {
+        order: 3
+      },
+      password: {
+        order: 4
+      },
+      confirm_password: {
+        order: 5
+      }
+    },
+  };
   menuValue:boolean=false;
  menu_icon :string ='bi bi-list';
  openMenu(){
