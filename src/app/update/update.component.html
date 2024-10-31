@@ -1,11 +1,14 @@
-<amplify-authenticator [formFields]="formFields" [signUpAttributes]="['name', 'email']">
-    <ng-template
-      amplifySlot="authenticated"
-      let-user="user"
-      let-signOut="signOut"
-    >
-      <h1>Welcome {{ user.username }}!</h1>
-      <p>update works!</p>
-      <button (click)="signOut()">Sign Out</button>
-    </ng-template>
-  </amplify-authenticator>
+<!-- Render loading if authStatus is still configuring  -->
+<ng-container *ngIf="authenticator.authStatus === 'configuring'">
+    Loading...
+  </ng-container>
+  
+  <!-- Only render this if there's an authenticated user -->
+  <ng-container *ngIf="authenticator.authStatus === 'authenticated'">
+    Welcome to Inventory Update, {{ authenticator.user.username }}!
+  </ng-container>
+  
+  <!-- Render sign-in screen otherwise with authenticator -->
+  <ng-container *ngIf="authenticator.authStatus !== 'authenticated'">
+    <amplify-authenticator></amplify-authenticator>
+  </ng-container>

@@ -7,7 +7,7 @@ import { UpdateComponent } from './update/update.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule }   from '@angular/forms';
 import { Amplify } from 'aws-amplify';
-import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
+import { AmplifyAuthenticatorModule, AuthenticatorService } from '@aws-amplify/ui-angular';
 
 Amplify.configure({
   Auth: {

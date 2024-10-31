@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { Amplify } from 'aws-amplify';
+import { AuthenticatorService } from '@aws-amplify/ui-angular';
+import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
 @Component({
   selector: 'app-update',
@@ -8,6 +11,18 @@ import { NgModule } from '@angular/core';
   styleUrls: ['./update.component.scss'],
 })
 export class UpdateComponent {
+
+  constructor(public authenticator: AuthenticatorService) {
+    Amplify.configure({
+      Auth: {
+        Cognito: {
+        userPoolId: 'eu-north-1_WB6vezmAZ',
+        userPoolClientId:'lqimnpstdggbdd1akni0lv09v'
+        }
+      }
+    });
+  }
+  
   formFields = {
     signUp: {
       username: {
@@ -26,6 +41,6 @@ export class UpdateComponent {
         order: 5
       }
     },
-  };
+}
   
 }
