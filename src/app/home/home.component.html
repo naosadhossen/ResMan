@@ -16,7 +16,7 @@
       <h2>API Response Data</h2>
     
       <!-- Table to display apiResponse data -->
-      <table class="table">
+      <!-- <table class="table">
         <thead>
           <tr>
             <th *ngFor="let header of headers">{{ header.displayName }}</th>
@@ -27,6 +27,42 @@
             <td *ngFor="let header of headers" 
                 [ngClass]="{'low-stock': header.key === 'Current Stock' && isLowStock(item)}">
               {{ item[header.key] }}
+            </td>
+          </tr>
+        </tbody>
+      </table> -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th *ngFor="let header of headers">{{ header.displayName }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of apiResponse">
+            <td *ngFor="let header of headers" [ngClass]="{'low-stock': header.key === 'Current Stock' && isLowStock(item)}">
+              
+              <!-- Display as span by default, switch to input on click for "Current Stock" cell -->
+              <ng-container *ngIf="header.key === 'Current Stock'; else displayCell">
+                
+                <!-- Check if this row is in edit mode, show input only when editing -->
+                <span *ngIf="!item.isEditing" (click)="item.isEditing = true">{{ item['Current Stock'] }}</span>
+                
+                <input
+                  *ngIf="item.isEditing"
+                  type="number"
+                  [(ngModel)]="item['Current Stock']"
+                  [ngClass]="{'low-stock': isLowStock(item)}"
+                  (blur)="onStockChange(item)"
+                  (keydown.enter)="item.isEditing = false"
+                />
+                
+              </ng-container>
+              
+              <!-- Default cell display for non-editable columns -->
+              <ng-template #displayCell>
+                {{ item[header.key] }}
+              </ng-template>
+              
             </td>
           </tr>
         </tbody>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { Amplify } from 'aws-amplify';
@@ -77,6 +77,15 @@ objectKeys(obj: any): string[] {
 isLowStock(item: any): boolean {
     return Number(item['Current Stock']) < Number(item['Min. Stock']);
 }
+
+  // Optional: handle logic when stock changes, such as saving data
+onStockChange(item: any) {
+    console.log('Stock updated for item:', item);
+    // Additional logic can go here, such as calling a service to save the updated stock
+    item.isEditing = false;
+}
+
+
 async ngOnInit(): Promise<void> {
   this.token = await (await fetchAuthSession()).tokens?.idToken;
   console.log(this.token);
