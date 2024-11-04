@@ -6,6 +6,37 @@
   <!-- Only render this if there's an authenticated user -->
   <ng-container *ngIf="authenticator.authStatus === 'authenticated'">
     Welcome to Home, {{name}}, {{ authenticator.user.username }}! {{token}} 
+<!-- 
+    <div *ngIf="apiResponse; else loading">
+      <h2>API Response Data</h2>
+      <pre>{{ apiResponse | json }}</pre>
+    </div> -->
+
+    <div *ngIf="apiResponse && apiResponse.length > 0; else loading">
+      <h2>API Response Data</h2>
+    
+      <!-- Table to display apiResponse data -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th *ngFor="let header of headers">{{ header.displayName }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of apiResponse">
+            <td *ngFor="let header of headers" 
+                [ngClass]="{'low-stock': header.key === 'Current Stock' && isLowStock(item)}">
+              {{ item[header.key] }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <ng-template #loading>
+      <p *ngIf="!apiError">Loading data...</p>
+      <p *ngIf="apiError" class="error">{{ apiError }}</p>
+    </ng-template>
   </ng-container>
   
   <!-- Render sign-in screen otherwise with authenticator -->

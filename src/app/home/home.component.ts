@@ -7,6 +7,7 @@ import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 import { AuthService } from '../AuthService';
 import { Injectable } from '@angular/core';
 import { AuthUser, getCurrentUser, signOut, fetchAuthSession, AuthTokens, JWT } from 'aws-amplify/auth';
+import { ApiService } from '../services/api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,18 @@ import { AuthUser, getCurrentUser, signOut, fetchAuthSession, AuthTokens, JWT } 
 export class HomeComponent implements OnInit {
   public token: JWT | undefined;
   public name: string | undefined;
-  constructor(public authenticator: AuthenticatorService) {
+  apiResponse: any;
+  apiError: string | null = null;
+    // Define an ordered array for header configuration
+    headers: { key: string; displayName: string }[] = [
+      { key: 'item', displayName: 'Item' },
+      { key: 'Current Stock', displayName: 'Current Stock' },
+      { key: 'Min. Stock', displayName: 'Min. Stock' },
+      // Add other headers in the desired order
+    ];
+
+
+  constructor(public authenticator: AuthenticatorService, private apiService: ApiService) {
     Amplify.configure({
       Auth: {
         Cognito: {
@@ -57,11 +69,28 @@ async getCurrentUserFullName(): Promise<string | undefined> {
   this.name = cognitoToken?.idToken?.payload['name']?.toString();
   return this.name = cognitoToken?.idToken?.payload['name']?.toString();
 }
+objectKeys(obj: any): string[] {
+  return Object.keys(obj);
+}
 
+  // Helper method to check if current stock is below minimum stock
+isLowStock(item: any): boolean {
+    return Number(item['Current Stock']) < Number(item['Min. Stock']);
+}
 async ngOnInit(): Promise<void> {
   this.token = await (await fetchAuthSession()).tokens?.idToken;
   console.log(this.token);
   let cognitoToken = await ((await fetchAuthSession()).tokens);
   this.name = cognitoToken?.idToken?.payload['name']?.toString();
+  this.apiService.getData().subscribe(
+    data => {
+      console.log('GET response:', data);
+      this.apiResponse = data;
+    },
+    error => {
+      console.error('GET error:', error);
+      this.apiError = 'An error occurred while fetching data';
+    }
+  );
 }
 }

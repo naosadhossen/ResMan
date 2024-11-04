@@ -8,6 +8,9 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule }   from '@angular/forms';
 import { Amplify } from 'aws-amplify';
 import { AmplifyAuthenticatorModule, AuthenticatorService } from '@aws-amplify/ui-angular';
+import { HttpClientModule } from '@angular/common/http';
+import { ApiService } from './services/api.service';
+
 
 Amplify.configure({
   Auth: {
@@ -28,7 +31,8 @@ Amplify.configure({
     BrowserModule,
     FormsModule,
     AmplifyAuthenticatorModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
