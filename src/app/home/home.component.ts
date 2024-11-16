@@ -28,8 +28,10 @@ export class HomeComponent implements OnInit {
     // Define an ordered array for header configuration
     headers: { key: string; displayName: string }[] = [
       { key: 'item', displayName: 'Item' },
+      { key: 'Unit', displayName: 'Unit' },
       { key: 'Current Stock', displayName: 'Current Stock' },
       { key: 'Min. Stock', displayName: 'Min. Stock' },
+      { key: 'Last Update Date', displayName: 'Last Update Date' },
       // Add other headers in the desired order
     ];
 
