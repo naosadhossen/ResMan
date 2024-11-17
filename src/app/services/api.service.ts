@@ -12,8 +12,13 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  // Example GET request method
+  // GET request method
   getData(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/get`);
+  }
+
+  //Update Inventory Method
+  updateInventory(data:any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/updateInventoryLambda`, data);
   }
 }
