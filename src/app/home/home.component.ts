@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
       { key: 'Unit', displayName: 'Unit' },
       { key: 'Current Stock', displayName: 'Current Stock' },
       { key: 'Min. Stock', displayName: 'Min. Stock' },
-      { key: 'Last Update Date', displayName: 'Last Update Date' },
+      { key: 'Last Update Date(UTC)', displayName: 'Last Update Date(UTC)' },
       // Add other headers in the desired order
     ];
 
@@ -83,6 +83,24 @@ isLowStock(item: any): boolean {
   // Optional: handle logic when stock changes, such as saving data
 onStockChange(item: any) {
     console.log('Stock updated for item:', item);
+      // Prepare the payload for the API
+    const payload = {
+      item: item.item, // Assuming the item identifier is in the "item" property
+      currentStock: String(item['Current Stock']), // Ensure the stock is a number
+    };
+      // Call the API service to update the item
+    this.apiService.updateInventory(payload).subscribe(
+      response => {
+      console.log('Stock updated successfully:', response);
+      item.isEditing = false; // Exit edit mode on success
+      window.location.reload();
+      },
+      error => {
+      console.error('Error updating stock:', error);
+      // alert('Failed to update stock. Please try again.');
+      window.location.reload();
+      }
+  );
     // Additional logic can go here, such as calling a service to save the updated stock
     item.isEditing = false;
 }
