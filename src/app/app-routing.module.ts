@@ -6,6 +6,10 @@ import { UpdateComponent } from './update/update.component';
 import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
+  { 
+      path: '', 
+      redirectTo: '/home', 
+      pathMatch: 'full' },
   {
       path: 'home',
       component: HomeComponent
