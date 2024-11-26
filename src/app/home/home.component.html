@@ -13,7 +13,7 @@
       <pre>{{ apiResponse | json }}</pre>
     </div> -->
 
-    <div *ngIf="apiResponse && apiResponse.length > 0; else loading">
+    <div class="responsive-table-wrapper" *ngIf="apiResponse && apiResponse.length > 0; else loading">
       <!-- <h2>API Response Data</h2> -->
     
       <!-- Table to display apiResponse data -->
