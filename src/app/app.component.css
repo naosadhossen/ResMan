@@ -36,7 +36,7 @@ header {
     display: none;
   }
   
-  @media screen and (min-width: 128px) and (max-width: 900px) {
+  @media screen and (min-width: 64px) and (max-width: 900px) {
     .desktop_menu {
       position: fixed !important;
       right: -280px;
