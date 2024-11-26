@@ -5,7 +5,8 @@
   
   <!-- Only render this if there's an authenticated user -->
   <ng-container *ngIf="authenticator.authStatus === 'authenticated'">
-    Welcome to Home, {{name}}, {{ authenticator.user.username }}! {{token}} 
+    <!-- Welcome to Home, {{name}}, {{ authenticator.user.username }}! {{token}}  -->
+    Welcome to Home, {{name}}, {{ authenticator.user.username }}!
 <!-- 
     <div *ngIf="apiResponse; else loading">
       <h2>API Response Data</h2>
@@ -13,7 +14,7 @@
     </div> -->
 
     <div *ngIf="apiResponse && apiResponse.length > 0; else loading">
-      <h2>API Response Data</h2>
+      <!-- <h2>API Response Data</h2> -->
     
       <!-- Table to display apiResponse data -->
       <!-- <table class="table">

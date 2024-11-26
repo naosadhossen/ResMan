@@ -5,7 +5,28 @@
   
   <!-- Only render this if there's an authenticated user -->
   <ng-container *ngIf="authenticator.authStatus === 'authenticated'">
-    Welcome to Inventory Update, {{ authenticator.user.username }}!
+    Welcome to Add New Item to Inventory, {{ authenticator.user.username }}!
+
+    <form #itemForm="ngForm" (ngSubmit)="onSubmit(itemForm)">
+      <div>
+        <label for="item">Item Name:</label>
+        <input id="item" name="item" ngModel required>
+      </div>
+      <div>
+        <label for="unit">Unit:</label>
+        <input id="unit" name="unit" ngModel required>
+      </div>
+      <div>
+        <label for="minStock">Minimum Stock:</label>
+        <input id="minStock" name="minStock" type="number" ngModel required>
+      </div>
+      <div>
+        <label for="currentStock">Current Stock:</label>
+        <input id="currentStock" name="currentStock" type="number" ngModel required>
+      </div>
+      <button type="submit" [disabled]="itemForm.invalid">Submit</button>
+    </form>
+    
   </ng-container>
   
   <!-- Render sign-in screen otherwise with authenticator -->
