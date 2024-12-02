@@ -81,15 +81,18 @@ isLowStock(item: any): boolean {
 }
 
   // Optional: handle logic when stock changes, such as saving data
-onStockChange(item: any) {
+async onStockChange(item: any) {
     console.log('Stock updated for item:', item);
       // Prepare the payload for the API
     const payload = {
       item: item.item, // Assuming the item identifier is in the "item" property
       currentStock: String(item['Current Stock']), // Ensure the stock is a number
     };
-      // Call the API service to update the item
-    this.apiService.updateInventory(payload).subscribe(
+    
+    const authSession = await fetchAuthSession();
+    
+    // Call the API service to update the item
+    (await this.apiService.updateInventory(payload)).subscribe(
       response => {
       console.log('Stock updated successfully:', response);
       item.isEditing = false; // Exit edit mode on success
@@ -111,7 +114,7 @@ async ngOnInit(): Promise<void> {
   console.log(this.token);
   let cognitoToken = await ((await fetchAuthSession()).tokens);
   this.name = cognitoToken?.idToken?.payload['name']?.toString();
-  this.apiService.getData().subscribe(
+  (await this.apiService.getData()).subscribe(
     data => {
       console.log('GET response:', data);
       this.apiResponse = data;
