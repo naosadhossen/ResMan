@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { UpdateComponent } from './update/update.component';
 import { LoginComponent } from './login/login.component';
+import { DetectionComponent } from './detection/detection.component';
 
 export const routes: Routes = [
   { 
@@ -21,6 +22,10 @@ export const routes: Routes = [
   {
       path:'login',
       component: LoginComponent
+  },
+  {
+    path:'detection',
+    component: DetectionComponent
   }
 ];
 

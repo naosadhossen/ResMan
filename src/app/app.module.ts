@@ -10,6 +10,7 @@ import { Amplify } from 'aws-amplify';
 import { AmplifyAuthenticatorModule, AuthenticatorService } from '@aws-amplify/ui-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
+import { DetectionComponent } from './detection/detection.component';
 
 
 Amplify.configure({
@@ -25,7 +26,8 @@ Amplify.configure({
     AppComponent,
     HomeComponent,
     UpdateComponent,
-    LoginComponent
+    LoginComponent,
+    DetectionComponent
   ],
   imports: [
     BrowserModule,

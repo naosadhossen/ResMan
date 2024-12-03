@@ -1,0 +1,31 @@
+<div class="detection-container">
+    <!-- Display the video feed from the camera -->
+    <video #videoElement autoplay></video>
+    
+    <!-- Button to capture image -->
+    <button (click)="captureImage()">Capture Image</button>
+  
+    <!-- Canvas to show the captured image -->
+    <canvas #canvasElement style="display:none;"></canvas>
+  
+    <!-- Display the captured image -->
+    <div *ngIf="capturedImage">
+      <h3>Captured Image:</h3>
+      <img [src]="capturedImage" alt="Captured Image" />
+    </div>
+  
+    <!-- Display detected objects and counts -->
+    <div *ngIf="detectedObjects">
+      <h3>Detected Objects:</h3>
+      <ul>
+        <li *ngFor="let object of objectKeys()">
+          {{ object }}: {{ detectedObjects[object] }}
+        </li>
+      </ul>
+      <h4>Total Objects: {{ totalObjects }}</h4>
+    </div>
+  
+    <!-- Button to send the image to API Gateway -->
+    <button (click)="sendImageToLambda()">Send Image for Detection</button>
+  </div>
+  
